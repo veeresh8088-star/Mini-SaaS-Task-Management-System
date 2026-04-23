@@ -12,11 +12,12 @@ const getTasks = async (req, res) => {
 // @route   POST /api/tasks
 // @access  Private
 const createTask = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, status } = req.body;
 
   const task = await Task.create({
     title,
     description,
+    status: status || 'Pending',
     userId: req.user.id,
   });
 

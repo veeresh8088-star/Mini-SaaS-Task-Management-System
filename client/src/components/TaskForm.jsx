@@ -5,15 +5,17 @@ const TaskForm = ({ onSubmit, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('Pending');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim()) return;
     
-    const success = await onSubmit({ title, description });
+    const success = await onSubmit({ title, description, status });
     if (success) {
       setTitle('');
       setDescription('');
+      setStatus('Pending');
       setIsOpen(false);
     }
   };
@@ -64,6 +66,27 @@ const TaskForm = ({ onSubmit, isLoading }) => {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
+
+        <div className="flex items-center gap-4 py-2">
+          <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">Initial Status:</span>
+          <div className="flex bg-slate-100 p-1 rounded-lg">
+            {['Pending', 'Completed'].map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setStatus(s)}
+                className={`px-3 py-1 rounded-md text-xs font-bold transition-all duration-200 ${
+                  status === s 
+                    ? 'bg-white text-primary-600 shadow-sm' 
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="flex justify-end gap-3">
           <button
             type="button"
