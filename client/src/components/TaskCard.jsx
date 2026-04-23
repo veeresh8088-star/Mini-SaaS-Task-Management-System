@@ -46,16 +46,24 @@ const TaskCard = ({ task, onToggleStatus, onDelete }) => {
                 {new Date(task.createdAt).toLocaleDateString()}
               </div>
               
-              <button
-                onClick={() => onToggleStatus(task.id, isCompleted ? 'Pending' : 'Completed')}
-                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tighter transition-all ${
-                  isCompleted 
-                    ? 'bg-green-100 text-green-700 hover:bg-green-200' 
-                    : 'bg-amber-100 text-amber-700 hover:bg-amber-200'
-                }`}
-              >
-                {task.status}
-              </button>
+              {/* Animated Toggle Switch */}
+              <div className="flex items-center gap-2">
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${isCompleted ? 'text-slate-400' : 'text-amber-600'}`}>
+                  {isCompleted ? 'Done' : 'Pending'}
+                </span>
+                <button
+                  onClick={() => onToggleStatus(task.id, isCompleted ? 'Pending' : 'Completed')}
+                  className={`relative w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none ${
+                    isCompleted ? 'bg-green-500' : 'bg-slate-200'
+                  }`}
+                >
+                  <motion.div
+                    animate={{ x: isCompleted ? 22 : 2 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    className="absolute top-1 w-3 h-3 bg-white rounded-full shadow-sm"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
