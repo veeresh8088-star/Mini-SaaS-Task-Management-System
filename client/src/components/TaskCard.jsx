@@ -40,9 +40,22 @@ const TaskCard = ({ task, onToggleStatus, onDelete }) => {
                 {task.description}
               </p>
             )}
-            <div className="flex items-center gap-1.5 mt-3 text-[11px] font-medium uppercase tracking-wider text-slate-400">
-              <Clock className="w-3 h-3" />
-              {new Date(task.createdAt).toLocaleDateString()}
+            <div className="flex items-center gap-3 mt-3">
+              <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                <Clock className="w-3 h-3" />
+                {new Date(task.createdAt).toLocaleDateString()}
+              </div>
+              
+              <button
+                onClick={() => onToggleStatus(task.id, isCompleted ? 'Pending' : 'Completed')}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tighter transition-all ${
+                  isCompleted 
+                    ? 'bg-green-100 text-green-700 hover:bg-green-200' 
+                    : 'bg-amber-100 text-amber-700 hover:bg-amber-200'
+                }`}
+              >
+                {task.status}
+              </button>
             </div>
           </div>
         </div>
