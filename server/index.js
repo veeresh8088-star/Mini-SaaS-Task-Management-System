@@ -34,11 +34,9 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('PostgreSQL Database Connected...');
     
-    // In development, sync models
-    if (process.env.NODE_ENV === 'development') {
-      await sequelize.sync({ alter: true });
-      console.log('Database synced...');
-    }
+    // Sync models
+    await sequelize.sync({ alter: true });
+    console.log('Database synced...');
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
